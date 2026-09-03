@@ -53,16 +53,16 @@ export default function CartList({ products }: { products: Product[] }) {
                 className="btn btn-primary btn-square"
                 onClick={() => remove(product.id)}
               >
-                −
+                -
               </button>
-              <span className="text-xl">{amount}</span>
+              <span className="text-xl min-w-6 text-center">{amount}</span>
               <button
                 className="btn btn-primary btn-square"
                 onClick={() => add(product.id)}
               >
                 +
               </button>
-              <span className="text-xl">
+              <span className="text-xl min-w-28 text-right">
                 {formatCurrency(product.price * amount)}
               </span>
             </div>

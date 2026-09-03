@@ -22,7 +22,7 @@ export default function ProductCard({ item }: { item: Product }) {
       <div className="card-body">
         <h2 className="card-title">{item.title}</h2>
         <p className="truncate">{item.description}</p>
-        <div className="badge badge-outline text-xs capitalize">
+        <div className="badge badge-secondary badge-outline text-xs capitalize">
           <Link href={`/category/${item.category}` as Route}>
             {item.category}
           </Link>
@@ -44,7 +44,9 @@ export default function ProductCard({ item }: { item: Product }) {
               >
                 -
               </button>
-              <span className="self-center text-xl">{amount}</span>
+              <span className="self-center text-xl min-w-6 text-center">
+                {amount}
+              </span>
               <button className="btn btn-primary" onClick={() => add(item.id)}>
                 +
               </button>
