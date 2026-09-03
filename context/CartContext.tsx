@@ -34,14 +34,18 @@ function readCart(): Cart {
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<Cart>({});
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     setItems(readCart());
+    setIsInitialized(true);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }, [items]);
+    if (isInitialized) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    }
+  }, [items, isInitialized]);
 
   const add = (productId: number) => {
     setItems((prev) => ({ ...prev, [productId]: (prev[productId] ?? 0) + 1 }));
