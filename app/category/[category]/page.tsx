@@ -1,6 +1,7 @@
 import ProductCard from "@/components/ProductCard";
-import { getProductsByCategory } from "@/lib/api";
+import { getProductsByCategory, type Product } from "@/lib/api";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 function capitalizeWords(str: string) {
   return str.replace(/(^|\s)\S/g, (char) => char.toUpperCase());
@@ -21,7 +22,16 @@ export default async function Category({
   params,
 }: PageProps<"/category/[category]">) {
   const { category } = await params;
-  const products = await getProductsByCategory(category);
+
+  let products: Product[] = [];
+  try {
+    products = await getProductsByCategory(category);
+  } catch {}
+
+  if (products.length === 0) {
+    notFound();
+  }
+
   return (
     <div className="flex flex-col items-center">
       <h2 className="my-4 text-2xl capitalize">
