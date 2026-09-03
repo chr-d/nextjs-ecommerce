@@ -3,6 +3,7 @@ import { useCart } from "@/context/CartContext";
 import { Product } from "@/lib/api";
 import { formatCurrency } from "@/lib/formatCurrency";
 import { Route } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function ProductCard({ item }: { item: Product }) {
@@ -12,10 +13,12 @@ export default function ProductCard({ item }: { item: Product }) {
   return (
     <div className="card bg-base-200 w-96 shadow-sm">
       <figure className="bg-white p-4 h-48">
-        <img
-          className="h-full"
+        <Image
+          className="h-full w-auto object-contain"
           src={item.image}
           alt={item.title}
+          width={200}
+          height={200}
           loading="lazy"
         />
       </figure>
@@ -40,6 +43,7 @@ export default function ProductCard({ item }: { item: Product }) {
             <>
               <button
                 className="btn btn-primary"
+                aria-label="Remove from cart"
                 onClick={() => remove(item.id)}
               >
                 -
@@ -47,7 +51,11 @@ export default function ProductCard({ item }: { item: Product }) {
               <span className="self-center text-xl min-w-6 text-center">
                 {amount}
               </span>
-              <button className="btn btn-primary" onClick={() => add(item.id)}>
+              <button
+                className="btn btn-primary"
+                aria-label="Add to cart"
+                onClick={() => add(item.id)}
+              >
                 +
               </button>
             </>

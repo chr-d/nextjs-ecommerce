@@ -3,6 +3,7 @@
 import { useCart } from "@/context/CartContext";
 import { Product } from "@/lib/api";
 import { formatCurrency } from "@/lib/formatCurrency";
+import Image from "next/image";
 
 export default function CartList({ products }: { products: Product[] }) {
   const { items, add, remove, clear } = useCart();
@@ -33,12 +34,14 @@ export default function CartList({ products }: { products: Product[] }) {
         )}
 
         {cartEntries.map(({ product, amount }) => (
-          <li className="md:list-row" key={product.id}>
+          <li className="md:list-row my-4 md:my-0 px-4" key={product.id}>
             <div className="flex size-20 justify-center bg-white p-2">
-              <img
-                className="h-full"
+              <Image
+                className="h-full w-auto object-contain"
                 alt={product.title}
                 src={product.image}
+                width={80}
+                height={80}
                 loading="lazy"
               />
             </div>
@@ -51,6 +54,7 @@ export default function CartList({ products }: { products: Product[] }) {
             <div className="flex items-center gap-2">
               <button
                 className="btn btn-primary btn-square"
+                aria-label="Remove from cart"
                 onClick={() => remove(product.id)}
               >
                 -
@@ -58,6 +62,7 @@ export default function CartList({ products }: { products: Product[] }) {
               <span className="text-xl min-w-6 text-center">{amount}</span>
               <button
                 className="btn btn-primary btn-square"
+                aria-label="Add to cart"
                 onClick={() => add(product.id)}
               >
                 +
