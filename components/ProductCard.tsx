@@ -1,24 +1,14 @@
+"use client";
+import { useCart } from "@/context/CartContext";
 import { Product } from "@/lib/api";
 import { formatCurrency } from "@/lib/formatCurrency";
 import { Route } from "next";
 import Link from "next/link";
 
 export default function ProductCard({ item }: { item: Product }) {
-  // const { cart, addToCart, removeFromCart } = useCart();
+  const { items, add, remove } = useCart();
+  const amount = items[item.id] ?? 0;
 
-  // const cartItem = cart.items.find((i) => i.id === item.id);
-
-  // const handleAddToCart = () => {
-  //   addToCart({
-  //     id: item.id,
-  //     title: item.title,
-  //     price: item.price,
-  //     image: item.image,
-  //   });
-  // };
-  // const handleRemoveFromCart = () => {
-  //   removeFromCart(item.id);
-  // };
   return (
     <div className="card bg-base-200 w-96 shadow-sm">
       <figure className="bg-white p-4 h-48">
@@ -42,24 +32,24 @@ export default function ProductCard({ item }: { item: Product }) {
             {formatCurrency(item.price)}
           </span>
 
-          {/* {!cartItem ? (
-            <button className="btn btn-primary" onClick={handleAddToCart}>
+          {amount === 0 ? (
+            <button className="btn btn-primary" onClick={() => add(item.id)}>
               Add to cart
             </button>
           ) : (
             <>
               <button
                 className="btn btn-primary"
-                onClick={handleRemoveFromCart}
+                onClick={() => remove(item.id)}
               >
                 -
               </button>
-              <span className="self-center text-xl">{cartItem.quantity}</span>
-              <button className="btn btn-primary" onClick={handleAddToCart}>
+              <span className="self-center text-xl">{amount}</span>
+              <button className="btn btn-primary" onClick={() => add(item.id)}>
                 +
               </button>
             </>
-          )} */}
+          )}
         </div>
       </div>
     </div>
