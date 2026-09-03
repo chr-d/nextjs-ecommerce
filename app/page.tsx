@@ -2,6 +2,8 @@ import ProductCard from "@/components/ProductCard";
 import { getCategories, getProducts } from "@/lib/api";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const [categories, products] = await Promise.all([
     getCategories(),

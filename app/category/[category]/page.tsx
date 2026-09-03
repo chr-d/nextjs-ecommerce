@@ -1,6 +1,8 @@
 import ProductCard from "@/components/ProductCard";
 import { getProductsByCategory } from "@/lib/api";
 
+export const dynamic = "force-dynamic";
+
 export default async function Category({
   params,
 }: PageProps<"/category/[category]">) {
