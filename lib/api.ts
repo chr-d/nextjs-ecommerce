@@ -21,19 +21,25 @@ export type Product = z.infer<typeof ProductSchema>;
 export type Category = z.infer<typeof CategorySchema>;
 
 export async function getCategories() {
-  const res = await fetch(`${API_BASE_URL}/products/categories`);
+  const res = await fetch(`${API_BASE_URL}/products/categories`, {
+    next: { revalidate: 60 },
+  });
   if (!res.ok) throw new Error(`API Error ${res.status}: ${res.statusText}`);
   return CategoriesSchema.parse(await res.json());
 }
 
 export async function getProducts() {
-  const res = await fetch(`${API_BASE_URL}/products`);
+  const res = await fetch(`${API_BASE_URL}/products`, {
+    next: { revalidate: 60 },
+  });
   if (!res.ok) throw new Error(`API Error ${res.status}: ${res.statusText}`);
   return ProductsSchema.parse(await res.json());
 }
 
 export async function getProductsByCategory(category: string) {
-  const res = await fetch(`${API_BASE_URL}/products/category/${category}`);
+  const res = await fetch(`${API_BASE_URL}/products/category/${category}`, {
+    next: { revalidate: 60 },
+  });
   if (!res.ok) throw new Error(`API Error ${res.status}: ${res.statusText}`);
   return ProductsSchema.parse(await res.json());
 }

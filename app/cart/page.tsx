@@ -1,6 +1,6 @@
 import CartList from "@/components/CartList";
 import { getProducts } from "@/lib/api";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "amooozon - Your Cart",

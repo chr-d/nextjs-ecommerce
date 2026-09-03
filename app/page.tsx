@@ -1,5 +1,6 @@
 import ProductCard from "@/components/ProductCard";
 import { getCategories, getProducts } from "@/lib/api";
+import { Route } from "next";
 import Link from "next/link";
 
 export default async function Home() {
@@ -13,7 +14,7 @@ export default async function Home() {
       <ul className="menu menu-horizontal">
         {categories?.map((category, index) => (
           <li className="bg-base-300 mx-2 capitalize" key={index}>
-            <Link href={`/category/${category}`}>{category}</Link>
+            <Link href={`/category/${category}` as Route}>{category}</Link>
           </li>
         ))}
       </ul>
