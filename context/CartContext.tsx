@@ -15,6 +15,7 @@ const STORAGE_KEY = "cart";
 
 type CartContextValue = {
   items: Cart;
+  isInitialized: boolean;
   add: (productId: number) => void;
   remove: (productId: number) => void;
   clear: () => void;
@@ -65,7 +66,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clear = () => setItems({});
 
-  const value = { items, add, remove, clear };
+  const value = { items, isInitialized, add, remove, clear };
 
   return <CartContext value={value}>{children}</CartContext>;
 }
