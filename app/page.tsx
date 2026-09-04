@@ -11,13 +11,15 @@ export default async function Home() {
 
   return (
     <div className="mt-4 flex flex-col items-center">
-      <ul className="menu menu-horizontal">
-        {categories?.map((category, index) => (
-          <li className="bg-base-300 mx-2 capitalize" key={index}>
-            <Link href={`/category/${category}` as Route}>{category}</Link>
-          </li>
-        ))}
-      </ul>
+      <nav>
+        <ul className="menu menu-horizontal">
+          {categories?.map((category, index) => (
+            <li className="bg-base-300 mx-2 capitalize" key={index}>
+              <Link href={`/category/${category}` as Route}>{category}</Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
       <div className="mt-4 flex flex-wrap justify-center gap-4">
         {products?.map((item) => (
           <ProductCard key={item.id} item={item} />

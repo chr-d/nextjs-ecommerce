@@ -8,21 +8,33 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 export default function CartList() {
-  const { items, add, remove, clear } = useCart();
+  const { items, isInitialized, add, remove, clear } = useCart();
   const [cartDetails, setCartDetails] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const hasFetched = useRef(false);
 
   useEffect(() => {
+    if (!isInitialized) return;
+
+    if (Object.keys(items).length === 0) {
+      setIsLoading(false);
+      return;
+    }
+
     const fetchItems = async () => {
       if (hasFetched.current || Object.keys(items).length === 0) return;
 
       hasFetched.current = true;
-      const results = await getCartItemsDetails(items);
-      setCartDetails(results);
+      try {
+        const results = await getCartItemsDetails(items);
+        setCartDetails(results);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchItems();
-  }, [items]);
+  }, [isInitialized, items]);
 
   const cartEntries = Object.entries(items)
     .map(([id, amount]) => {
@@ -37,6 +49,18 @@ export default function CartList() {
   const total = cartEntries.reduce((sum, cartEntry) => {
     return sum + cartEntry.product!.price * cartEntry.amount;
   }, 0);
+
+  if (!isInitialized || (Object.keys(items).length > 0 && isLoading)) {
+    return (
+      <div className="mx-8 mt-8">
+        <ul className="list bg-base-200 rounded-box shadow-md">
+          <li className="p-4 pb-2 text-xl tracking-wide opacity-60">
+            <span className="skeleton skeleton-text">Loading Cart...</span>
+          </li>
+        </ul>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-8 mt-8">

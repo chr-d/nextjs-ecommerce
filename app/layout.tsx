@@ -16,8 +16,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en">
       <body>
         <CartProvider>
-          <Navbar />
-          {children}
+          <div className="flex flex-col items-center">
+            <div className="max-w-7xl">
+              <Navbar />
+              <main>{children}</main>
+            </div>
+          </div>
         </CartProvider>
       </body>
     </html>
