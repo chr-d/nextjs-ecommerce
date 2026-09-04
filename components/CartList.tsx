@@ -2,15 +2,31 @@
 
 import { useCart } from "@/context/CartContext";
 import { Product } from "@/lib/api";
+import { getCartItemsDetails } from "@/lib/cart";
 import { formatCurrency } from "@/lib/formatCurrency";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
-export default function CartList({ products }: { products: Product[] }) {
+export default function CartList() {
   const { items, add, remove, clear } = useCart();
+  const [cartDetails, setCartDetails] = useState<Product[]>([]);
+  const hasFetched = useRef(false);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      if (hasFetched.current || Object.keys(items).length === 0) return;
+
+      hasFetched.current = true;
+      const results = await getCartItemsDetails(items);
+      setCartDetails(results);
+    };
+
+    fetchItems();
+  }, [items]);
 
   const cartEntries = Object.entries(items)
     .map(([id, amount]) => {
-      const product = products.find((p) => p.id === Number(id));
+      const product = cartDetails.find((p) => p.id === Number(id));
       return { product, amount };
     })
     .filter(

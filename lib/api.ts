@@ -1,3 +1,5 @@
+"use server";
+
 import z from "zod";
 
 const API_BASE_URL = "https://fakestoreapi.com";
@@ -42,4 +44,12 @@ export async function getProductsByCategory(category: string) {
   });
   if (!res.ok) throw new Error(`API Error ${res.status}: ${res.statusText}`);
   return ProductsSchema.parse(await res.json());
+}
+
+export async function getProductById(id: string) {
+  const res = await fetch(`${API_BASE_URL}/products/${id}`, {
+    next: { revalidate: 60 },
+  });
+  if (!res.ok) throw new Error(`API Error ${res.status}: ${res.statusText}`);
+  return ProductSchema.parse(await res.json());
 }
