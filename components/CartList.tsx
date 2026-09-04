@@ -51,7 +51,15 @@ export default function CartList() {
   }, 0);
 
   if (!isInitialized || (Object.keys(items).length > 0 && isLoading)) {
-    return <div>Loading...</div>;
+    return (
+      <div className="mx-8 mt-8">
+        <ul className="list bg-base-200 rounded-box shadow-md">
+          <li className="p-4 pb-2 text-xl tracking-wide opacity-60">
+            <span className="skeleton skeleton-text">Loading Cart...</span>
+          </li>
+        </ul>
+      </div>
+    );
   }
 
   return (
