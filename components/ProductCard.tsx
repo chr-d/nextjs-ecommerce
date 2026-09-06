@@ -1,15 +1,11 @@
-"use client";
-import { useCart } from "@/context/CartContext";
-import { Product } from "@/lib/api";
+import CardCartButtons from "@/components/CardCartButtons";
+import type { Product } from "@/lib/api";
 import { formatCurrency } from "@/lib/formatCurrency";
-import { Route } from "next";
+import type { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function ProductCard({ item }: { item: Product }) {
-  const { items, add, remove } = useCart();
-  const amount = items[item.id] ?? 0;
-
   return (
     <div className="card bg-base-200 w-96 shadow-sm">
       <figure className="bg-white p-4 h-48">
@@ -34,32 +30,7 @@ export default function ProductCard({ item }: { item: Product }) {
           <span className="self-center text-xl">
             {formatCurrency(item.price)}
           </span>
-
-          {amount === 0 ? (
-            <button className="btn btn-primary" onClick={() => add(item.id)}>
-              Add to cart
-            </button>
-          ) : (
-            <>
-              <button
-                className="btn btn-primary"
-                aria-label="Remove from cart"
-                onClick={() => remove(item.id)}
-              >
-                -
-              </button>
-              <span className="self-center text-xl min-w-6 text-center">
-                {amount}
-              </span>
-              <button
-                className="btn btn-primary"
-                aria-label="Add to cart"
-                onClick={() => add(item.id)}
-              >
-                +
-              </button>
-            </>
-          )}
+          <CardCartButtons itemId={item.id} />
         </div>
       </div>
     </div>
