@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { CartProvider } from "@/context/CartContext";
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "amooozon",
@@ -16,11 +16,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en">
       <body>
         <CartProvider>
-          <div className="flex flex-col items-center">
-            <div className="max-w-7xl">
-              <Navbar />
-              <main>{children}</main>
-            </div>
+          <div className="max-w-7xl mx-auto">
+            <Navbar />
+            <main>{children}</main>
           </div>
         </CartProvider>
       </body>

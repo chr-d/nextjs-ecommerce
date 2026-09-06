@@ -1,6 +1,6 @@
 import ProductCard from "@/components/ProductCard";
 import { getProductsByCategory, type Product } from "@/lib/api";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 function capitalizeWords(str: string) {

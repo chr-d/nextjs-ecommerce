@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
-import { Product } from "@/lib/api";
+import type { Product } from "@/lib/api";
 import { getCartItemsDetails } from "@/lib/cart";
 import { formatCurrency } from "@/lib/formatCurrency";
 import Image from "next/image";

@@ -6,6 +6,6 @@ export const metadata: Metadata = {
   description: "See all products in your shopping cart",
 };
 
-export default async function Cart() {
+export default function Cart() {
   return <CartList />;
 }
