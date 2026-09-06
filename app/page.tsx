@@ -1,6 +1,6 @@
 import ProductCard from "@/components/ProductCard";
 import { getCategories, getProducts } from "@/lib/api";
-import { Route } from "next";
+import type { Route } from "next";
 import Link from "next/link";
 
 export default async function Home() {

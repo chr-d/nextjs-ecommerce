@@ -9,9 +9,10 @@ import {
 } from "react";
 import z from "zod";
 
+const STORAGE_KEY = "cart";
+
 const cartSchema = z.record(z.string(), z.number().int().positive());
 export type Cart = z.infer<typeof cartSchema>;
-const STORAGE_KEY = "cart";
 
 type CartContextValue = {
   items: Cart;
